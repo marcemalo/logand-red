@@ -5,7 +5,7 @@ import axios from "../../api/axios"
 const Profile = () => {
 const [profile , setProfile] = useState(null)
     useEffect(() => {
-        axios("/aut/profile")
+        axios("/auth/profile/")
         .then(response => setProfile(response.data))
     }, [])
 
@@ -15,7 +15,7 @@ const [profile , setProfile] = useState(null)
         <h1>siz mufaqatli otiz</h1>
          {
             profile &&
-            <img src={profile.avtar} alt="" />
+            <img src={profile.avatar} alt="" />
          }
     </div>
   )
