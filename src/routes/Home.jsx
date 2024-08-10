@@ -7,6 +7,28 @@ import { Link } from 'react-router-dom'
 
 
 const Home = () => {
+  const [query, setQuery] = useState('');
+  const [results, setResults] = useState([]);
+  const [loading, setLoading] = useState(false);
+  const [error, setError] = useState(null);
+
+  const handleSearch = async () => {
+    setLoading(true);
+    setError(null);
+    try {
+      const response = await axios.get('https://dummyjson.com/products/search', {
+        params: { q: query }
+      });
+      setResults(response.data.products); // Adjust if the response structure is different
+    } catch (err) {
+      setError('An error occurred while fetching the data.');
+    }
+    setLoading(false);
+  };
+
+  const handleChange = (event) => {
+    setQuery(event.target.value);
+  };
 
   const [products, setProducts] = useState([])
 
@@ -38,7 +60,26 @@ const Home = () => {
           </div>
         )
       }
+      <div>
+      <input
+        type="text"
+        value={query}
+        onChange={handleChange}
+        placeholder="Search for a phone..."
+      />
+      <button onClick={handleSearch}>Search</button>
+
+      {loading && <p>Loading...</p>}
+      {error && <p>{error}</p>}
+      <ul>
+        {results.map((product) => (
+          <li key={product.id}><img src={product.thumbnail} alt="" /></li>
+        ))}
+      </ul>
     </div>
+    </div>
+
+    
     
     </>
 
