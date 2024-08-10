@@ -1,5 +1,6 @@
 import { useEffect, useState } from "react"
 import axios from "../../api/axios"
+import "./Profile.css"
 
 
 const Profile = () => {
@@ -11,13 +12,22 @@ const [profile , setProfile] = useState(null)
 
 
   return (
-    <div>
-        <h1>siz mufaqatli otiz</h1>
-         {
+    <div className="modal-overlay">
+    <div className="modal-content">
+        <h1 className="modal-title">Profile</h1>
+        {
             profile &&
-            <img src={profile.avatar} alt="" />
-         }
+            <img className="modal-avatar" src={profile.avatar} alt="Profile Avatar" />
+        }
+        {
+            profile && <h2 className="modal-email">{profile.email}</h2> 
+        }
+        {
+            profile && <h2 className="modal-password">{profile.password}</h2> 
+        }
     </div>
+</div>
+
   )
 }
 
